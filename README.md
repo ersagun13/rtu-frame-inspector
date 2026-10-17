@@ -17,7 +17,7 @@ For example, `01 03 00 00 00 01 84 0A` contains address `1`, function `03`, and 
 ## What it decodes
 
 - Address, function code, payload bytes, and received versus calculated CRC.
-- Function `03` payloads with four bytes are shown as request-shaped data: starting address and quantity. The frame alone does not identify request versus response, so that interpretation is marked as uncertain.
+- Function `03` payloads with four bytes are decoded as a read request: starting address and quantity. A response uses a byte-count field followed by two bytes per register.
 - Function `06` payloads with four bytes show the register address and value.
 - Other payload shapes remain visible as raw bytes.
 

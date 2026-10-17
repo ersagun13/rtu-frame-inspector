@@ -47,6 +47,7 @@ test("shows decoded fields and CRC status for a valid frame", () => {
   assert.equal(elements.get("#address").textContent, "1 (0x01)");
   assert.equal(elements.get("#function").textContent, "03 — Read Holding Registers");
   assert.equal(elements.get("#payload").textContent, "00 00 00 01");
+  assert.match(elements.get("#decoded").textContent, /Read request/);
   assert.match(elements.get("#decoded").textContent, /Starting address 0; quantity 1/);
   assert.equal(elements.get("#crc-status").textContent, "Valid — received 0x0A84, calculated 0x0A84");
 });

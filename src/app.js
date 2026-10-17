@@ -15,7 +15,7 @@ function formatPayload(bytes) {
 
 function describePayload(frame) {
   if (frame.decoded?.shape === "read-holding-registers-request") {
-    return `Request-shaped payload — Starting address ${frame.decoded.startingAddress}; quantity ${frame.decoded.quantity}. Frame direction cannot be inferred from these bytes.`;
+    return `Read request — Starting address ${frame.decoded.startingAddress}; quantity ${frame.decoded.quantity}.`;
   }
 
   if (frame.decoded?.shape === "write-single-register") {

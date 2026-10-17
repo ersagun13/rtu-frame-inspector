@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f1f4f2">
+    <title>RTU Frame Inspector</title>
+    <link rel="stylesheet" href="src/style.css">
+    <script type="module" src="src/app.js"></script>
+  </head>
+  <body>
+    <main class="shell">
+      <header class="page-header">
+        <p class="eyebrow">MODBUS / RTU</p>
+        <h1>Frame inspector</h1>
+        <p class="intro">Paste a frame as hexadecimal bytes. The check runs in this page; nothing is sent anywhere.</p>
+      </header>
+
+      <section class="tool-card" aria-labelledby="input-heading">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">INPUT</p>
+            <h2 id="input-heading">Frame bytes</h2>
+          </div>
+          <span class="local-tag">LOCAL ONLY</span>
+        </div>
+
+        <form id="frame-form">
+          <label for="frame-input">Hexadecimal frame</label>
+          <textarea
+            id="frame-input"
+            name="frame"
+            rows="3"
+            spellcheck="false"
+            autocomplete="off"
+            aria-describedby="frame-help"
+            placeholder="01 03 00 00 00 01 84 0A"
+            required
+          ></textarea>
+          <p id="frame-help" class="field-help">Spaces and line breaks are fine. Include the two CRC bytes at the end.</p>
+          <button type="submit">Inspect frame <span aria-hidden="true">→</span></button>
+        </form>
+
+        <p id="error" class="error-message" role="alert" hidden></p>
+      </section>
+
+      <section id="results" class="results-card" aria-labelledby="results-heading" aria-live="polite" hidden>
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">DECODED FRAME</p>
+            <h2 id="results-heading">What the bytes say</h2>
+          </div>
+        </div>
+        <dl class="field-list">
+          <div class="field-row">
+            <dt>Address</dt>
+            <dd id="address"></dd>
+          </div>
+          <div class="field-row">
+            <dt>Function</dt>
+            <dd id="function"></dd>
+          </div>
+          <div class="field-row">
+            <dt>Payload</dt>
+            <dd id="payload" class="byte-string"></dd>
+          </div>
+          <div class="field-row field-row--wide">
+            <dt>Interpretation</dt>
+            <dd id="decoded"></dd>
+          </div>
+          <div class="field-row">
+            <dt>CRC-16/Modbus</dt>
+            <dd id="crc-status" class="status"></dd>
+          </div>
+        </dl>
+      </section>
+
+      <aside class="example-card" aria-labelledby="example-heading">
+        <p class="eyebrow">TRY A KNOWN FRAME</p>
+        <h2 id="example-heading">Read one holding register</h2>
+        <code>01 03 00 00 00 01 84 0A</code>
+        <p>Address 1 · function 03 · start 0 · quantity 1</p>
+      </aside>
+
+      <footer class="page-footer">
+        <p>Checks byte syntax, selected fields, and CRC only. It does not inspect serial timing, parity, or a live bus.</p>
+      </footer>
+    </main>
+  </body>
+</html>
